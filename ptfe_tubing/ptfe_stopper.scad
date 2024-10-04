@@ -1,5 +1,6 @@
 // Useful with Creality Space PI, which does not stop the PTFE tube from sliding into the filament compartment.
 // Print it with 0.2 nozzle and 0.06 high quality for best results. Enable brim for better adhesion.
+// Printing horizontally might improve the strength of the part.
 
 // default values, override them as needed. Values are in millimeters
 function ptfe_stopper_tube_outer_diameter() = 4.0;
