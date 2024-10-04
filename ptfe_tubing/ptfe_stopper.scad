@@ -69,7 +69,7 @@ module ptfe_stopper_sleeve(
         }
 
         // sleeve
-        %translate([0, 0, sleeve_offset_z])
+        translate([0, 0, sleeve_offset_z])
         linear_extrude(height = sleeve_h) {
             difference() {
                 circle(d = sleeve_outer_d);
