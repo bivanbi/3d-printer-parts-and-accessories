@@ -5,8 +5,12 @@ dotenv: ['.env']
 
 vars:
   dir: '{{.USER_WORKING_DIR}}'
-  default_format: "stl"
-  default_resolution: 100
+  default_render_format: "stl"
+  default_render_resolution: 100
+
+  default_bitmap_format: "png"
+  default_bitmap_size_x: 1024
+  default_bitmap_size_y: 768
 
 tasks:
   default:
@@ -17,7 +21,7 @@ tasks:
     desc: "Render all SCAD files in the current directory"
     vars:
       format: "{{.FORMAT | default .default_format}}"
-      resolution: "{{.RESOLUTION | default .default_resolution}}"
+      resolution: "{{.RESOLUTION | default .default_render_resolution}}"
     cmds:
       - |
         set -e
@@ -25,11 +29,17 @@ tasks:
           task render -- "${_FILE}"
         done
 
+      - |
+        set -e
+        for _FILE in $(ls {{.dir}}/*.scad); do
+          task bitmap -- "${_FILE}"
+        done
+
   render:
     desc: "Render a single SCAD file"
     vars:
       format: "{{.FORMAT | default .default_format}}"
-      resolution: "{{.RESOLUTION | default .default_resolution}}"
+      resolution: "{{.RESOLUTION | default .default_render_resolution}}"
       file: "{{.CLI_ARGS}}"
     cmds:
       - |
@@ -39,3 +49,20 @@ tasks:
         cd "{{.dir}}"
         _EXPORT_FILE="$(dirname "{{.file}}")/$(basename "{{.file}}" .scad).{{.format}}"
         openscad -o "${_EXPORT_FILE}" -D '$fn={{.resolution}}' "{{.file}}"
+
+  bitmap:
+    desc: "Create bitmap image from SCAD file"
+    vars:
+      format: "{{.BITMAP_FORMAT | default .default_bitmap_format}}"
+      resolution: "{{.RESOLUTION | default .default_render_resolution}}"
+      size_x: "{{.BITMAP_SIZE_X | default .default_bitmap_size_x}}"
+      size_y: "{{.BITMAP_SIZE_Y | default .default_bitmap_size_y}}"
+      file: "{{.CLI_ARGS}}"
+    cmds:
+        - |
+            set -e
+            [[ -z "{{.file}}" ]] && echo "No file specified" && exit 1
+            echo "Creating bitmap image from '{{.file}}' with a resolution of '{{.size_x}}x{{.size_y}}'"
+            cd "{{.dir}}"
+            _EXPORT_FILE="$(dirname "{{.file}}")/$(basename "{{.file}}" .scad).{{.format}}"
+            openscad -o "${_EXPORT_FILE}" --viewall --autocenter --imgsize="{{.size_x}},{{.size_y}}" -D '$fn={{.resolution}}' "{{.file}}"

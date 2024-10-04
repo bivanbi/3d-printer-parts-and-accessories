@@ -11,3 +11,6 @@
 **/*.off
 **/*.stl
 **/*.svg
+
+# rendered bitmap image
+**/*.png
