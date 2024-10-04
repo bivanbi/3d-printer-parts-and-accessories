@@ -20,8 +20,8 @@ tasks:
   all:
     desc: "Render all SCAD files in the current directory"
     vars:
-      format: "{{.FORMAT | default .default_format}}"
-      resolution: "{{.RESOLUTION | default .default_render_resolution}}"
+      format: "{{.RENDER_FORMAT | default .default_render_format}}"
+      resolution: "{{.RENDER_RESOLUTION | default .default_render_resolution}}"
     cmds:
       - |
         set -e
@@ -38,8 +38,8 @@ tasks:
   render:
     desc: "Render a single SCAD file"
     vars:
-      format: "{{.FORMAT | default .default_format}}"
-      resolution: "{{.RESOLUTION | default .default_render_resolution}}"
+      format: "{{.RENDER_FORMAT | default .default_render_format}}"
+      resolution: "{{.RENDER_RESOLUTION | default .default_render_resolution}}"
       file: "{{.CLI_ARGS}}"
     cmds:
       - |
@@ -54,7 +54,7 @@ tasks:
     desc: "Create bitmap image from SCAD file"
     vars:
       format: "{{.BITMAP_FORMAT | default .default_bitmap_format}}"
-      resolution: "{{.RESOLUTION | default .default_render_resolution}}"
+      resolution: "{{.RENDER_RESOLUTION | default .default_render_resolution}}"
       size_x: "{{.BITMAP_SIZE_X | default .default_bitmap_size_x}}"
       size_y: "{{.BITMAP_SIZE_Y | default .default_bitmap_size_y}}"
       file: "{{.CLI_ARGS}}"
