@@ -42,6 +42,8 @@ openscad -o output.stl -D '$fn=100' input.scad
    task
    ```
 
+*This will also create a PNG preview and an STL file for each `.scad` file in the directory.*
+
 ### Render a single `.scad` file from command line with Gotask
 1. Open a terminal
 2. Run Gotask with the directory containing the `.scad` files, e.g.:
@@ -50,6 +52,16 @@ openscad -o output.stl -D '$fn=100' input.scad
    task render -- <SCAD filename>
    # or
    task render -- <path/to/filename.scad>
+   ```
+
+### Create PNG image of a single `.scad` file from command line with Gotask
+1. Open a terminal
+2. Run Gotask with the directory containing the `.scad` files, e.g.:
+   ```bash
+   cd path/to/directory
+   task bitmap -- <SCAD filename>
+   # or
+   task bitmap -- <path/to/filename.scad>
    ```
 
 #### Override format and render resolution
