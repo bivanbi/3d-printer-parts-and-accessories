@@ -64,15 +64,17 @@ openscad -o output.stl -D '$fn=100' input.scad
    task bitmap -- <path/to/filename.scad>
    ```
 
-#### Override format and render resolution
+#### Override default settings
 ##### On commandline:
 Invoke Gotask with environment variables set, e.g.:
 ```bash
-FORMAT=stl RESOLUTION=100 task
+RENDER_FORMAT=stl RENDER_RESOLUTION=100 BITMAP_SIZE_X=1920 BITMAP_SIZE_Y=1080 task
 
 # or
-export FORMAT=stl
-export RESOLUTION=100
+export RENDER_FORMAT=stl
+export RENDER_RESOLUTION=100
+export BITMAP_SIZE_X=1920
+export BITMAP_SIZE_Y=1080
 task
 ```
 
