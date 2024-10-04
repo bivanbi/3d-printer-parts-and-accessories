@@ -5,7 +5,7 @@
 // default values, override them as needed. Values are in millimeters
 function ptfe_stopper_tube_outer_diameter() = 4.0;
 function ptfe_stopper_tube_inner_diameter() = 2.0;
-function ptfe_stopper_sleeve_outer_diameter() = 6.0;
+function ptfe_stopper_sleeve_outer_diameter() = 7.0;
 function ptfe_stopper_sleeve_length() = 10.0;
 function pfte_stopper_insert_length() = 10.0;
 function pfte_stopper_sleeve_insert_overlap() = 3.0; // provide some strenght to the joint
