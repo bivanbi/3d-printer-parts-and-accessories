@@ -7,6 +7,7 @@ vars:
   dir: '{{.USER_WORKING_DIR}}'
   default_render_format: "stl"
   default_render_resolution: 100
+  default_render_backend: "Manifold" # newer, faster
 
   default_bitmap_format: "png"
   default_bitmap_size_x: 1024
@@ -22,6 +23,7 @@ tasks:
     vars:
       format: "{{.RENDER_FORMAT | default .default_render_format}}"
       resolution: "{{.RENDER_RESOLUTION | default .default_render_resolution}}"
+      backend: "{{.RENDER_BACKEND | default .default_render_backend}}"
     cmds:
       - |
         set -e
@@ -40,6 +42,7 @@ tasks:
     vars:
       format: "{{.RENDER_FORMAT | default .default_render_format}}"
       resolution: "{{.RENDER_RESOLUTION | default .default_render_resolution}}"
+      backend: "{{.RENDER_BACKEND | default .default_render_backend}}"
       file: "{{.CLI_ARGS}}"
     cmds:
       - |
@@ -48,13 +51,14 @@ tasks:
         echo "Rendering '{{.file}}' into '{{.format}}' format with a resolution of '{{.resolution}}'"
         cd "{{.dir}}"
         _EXPORT_FILE="$(dirname "{{.file}}")/$(basename "{{.file}}" .scad).{{.format}}"
-        openscad -o "${_EXPORT_FILE}" -D '$fn={{.resolution}}' "{{.file}}"
+        openscad -o "${_EXPORT_FILE}" --backend '{{.backend}}' -D '$fn={{.resolution}}' "{{.file}}"
 
   bitmap:
     desc: "Create bitmap image from SCAD file"
     vars:
       format: "{{.BITMAP_FORMAT | default .default_bitmap_format}}"
       resolution: "{{.RENDER_RESOLUTION | default .default_render_resolution}}"
+      backend: "{{.RENDER_BACKEND | default .default_render_backend}}"
       size_x: "{{.BITMAP_SIZE_X | default .default_bitmap_size_x}}"
       size_y: "{{.BITMAP_SIZE_Y | default .default_bitmap_size_y}}"
       file: "{{.CLI_ARGS}}"
@@ -65,4 +69,4 @@ tasks:
             echo "Creating bitmap image from '{{.file}}' with a resolution of '{{.size_x}}x{{.size_y}}'"
             cd "{{.dir}}"
             _EXPORT_FILE="$(dirname "{{.file}}")/$(basename "{{.file}}" .scad).{{.format}}"
-            openscad -o "${_EXPORT_FILE}" --viewall --autocenter --imgsize="{{.size_x}},{{.size_y}}" -D '$fn={{.resolution}}' "{{.file}}"
+            openscad -o "${_EXPORT_FILE}" --backend '{{.backend}}' --viewall --autocenter --imgsize="{{.size_x}},{{.size_y}}" -D '$fn={{.resolution}}' "{{.file}}"

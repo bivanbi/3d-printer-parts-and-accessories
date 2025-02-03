@@ -4,7 +4,8 @@ Useful models to help with 3D Printers, filament dryers, filament spools etc.
 ## Dependencies
 ### OpenSCAD (required)
 Required to render the `.scad` files into STL or other model file format.
-Download OpenSCAD from [OpenSCAD](https://www.openscad.org/downloads.html)
+Download OpenSCAD from [OpenSCAD](https://www.openscad.org/downloads.html#snapshots).
+Make sure to download a *development snapshot* for the latest features.
 
 ### Gotask (optional)
 Optional tool to render multiple `.scad` files with ease.
